@@ -45,9 +45,6 @@ This project visually demonstrates stack operations such as **push, pop, peek, c
 
 ---
 
-## 📷 Preview
-
-![Stack Visualizer Preview](assets/preview.png)
 
 ---
 
