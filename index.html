@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Visualizer - Interactive Memory Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-container">
+                <div class="header-left">
+                    <div class="logo">
+                        <div class="logo-icon">📚</div>
+                        <div class="logo-text">
+                            <h1>Stack Visualizer</h1>
+                            <p>Interactive Memory Simulator</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="themeToggle" class="theme-toggle" data-testid="button-theme-toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="grid-container">
+                <!-- Stack Visualizer -->
+                <div class="visualizer-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-row">
+                                <h2>Memory Visualization</h2>
+                                <div class="capacity-display">
+                                    <span>Capacity:</span>
+                                    <span class="capacity-badge" data-testid="text-capacity" id="capacityDisplay">5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <!-- Stack Container -->
+                            <div class="stack-container">
+                                <div class="stack-wrapper">
+                                    <!-- Pointer Arrow -->
+                                    <div class="pointer-arrow" id="pointer" data-testid="pointer-top">
+                                        <div class="pointer-label">TOP</div>
+                                        <div class="pointer-triangle"></div>
+                                    </div>
+                                    
+                                    <!-- Stack Blocks Container -->
+                                    <div class="stack-blocks" id="stackBlocks"></div>
+                                    
+                                    <!-- Index Labels -->
+                                    <div class="index-labels" id="indexLabels"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Array Representation -->
+                            <div class="array-representation">
+                                <div class="array-header">
+                                    <h3>Array Representation</h3>
+                                    <span class="array-size" data-testid="text-array-size" id="arraySize">Size: 0</span>
+                                </div>
+                                <div class="array-display">
+                                    <span class="array-bracket">stack.items = [</span>
+                                    <span class="array-content" data-testid="text-array-display" id="arrayContent"></span>
+                                    <span class="array-bracket">]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Control Panel -->
+                <div class="controls-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Stack Operations</h2>
+                        </div>
+                        <div class="card-content">
+                            <!-- Push Section -->
+                            <div class="input-section">
+                                <label for="valueInput">Push Value</label>
+                                <div class="input-group">
+                                    <input type="text" id="valueInput" placeholder="Enter value..." data-testid="input-value">
+                                    <button class="btn btn-primary" onclick="pushValue()" data-testid="button-push">
+                                        ➕ Push
+                                    </button>
+                                </div>
+                                <p class="input-help">Press Enter to push</p>
+                            </div>
+                            
+                            <!-- Operation Buttons -->
+                            <div class="button-grid">
+                                <button class="btn btn-destructive" onclick="popValue()" data-testid="button-pop">
+                                    ➖ Pop
+                                </button>
+                                <button class="btn btn-success" onclick="peekValue()" data-testid="button-peek">
+                                    👁️ Peek
+                                </button>
+                                <button class="btn btn-warning" onclick="clearStack()" data-testid="button-clear">
+                                    🗑️ Clear
+                                </button>
+                                <button class="btn btn-purple" onclick="randomizeStack()" data-testid="button-randomize">
+                                    🎲 Random
+                                </button>
+                            </div>
+                            
+                            <!-- Display All Button -->
+                            <div class="display-all-section">
+                                <button class="btn btn-outline full-width" onclick="displayAll()" data-testid="button-display-all">
+                                    📋 Display All Items
+                                </button>
+                            </div>
+                            
+                            <!-- Resize Section -->
+                            <div class="resize-section">
+                                <label for="capacityInput">Resize Capacity</label>
+                                <div class="input-group">
+                                    <input type="number" id="capacityInput" placeholder="New capacity..." min="1" max="20" data-testid="input-capacity">
+                                    <button class="btn btn-indigo" onclick="resizeStack()" data-testid="button-resize">
+                                        🔧 Resize
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status and Shortcuts Section -->
+            <div class="bottom-section">
+                <!-- Status Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Stack Status</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="status-item">
+                            <span>Top Index:</span>
+                            <span class="status-value" data-testid="text-top-index" id="topIndex">-1</span>
+                        </div>
+                        <div class="status-item">
+                            <span>Size:</span>
+                            <span class="status-value" data-testid="text-stack-size" id="stackSize">0</span>
+                        </div>
+                        <div class="status-item">
+                            <span>Capacity:</span>
+                            <span class="status-value" data-testid="text-stack-capacity" id="stackCapacity">5</span>
+                        </div>
+                        <div class="last-operation">
+                            <span>Last Operation:</span>
+                            <div class="operation-display" data-testid="text-last-operation" id="lastOperation">
+                                Application initialized
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Keyboard Shortcuts -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Keyboard Shortcuts</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="shortcut-item">
+                            <span>Push:</span>
+                            <kbd>Enter</kbd>
+                        </div>
+                        <div class="shortcut-item">
+                            <span>Pop:</span>
+                            <kbd>P</kbd>
+                        </div>
+                        <div class="shortcut-item">
+                            <span>Peek:</span>
+                            <kbd>K</kbd>
+                        </div>
+                        <div class="shortcut-item">
+                            <span>Clear:</span>
+                            <kbd>C</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Toast Container -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
