@@ -6,7 +6,7 @@ An interactive **Stack Data Structure Visualizer** built with **HTML, CSS, and J
 This project visually demonstrates stack operations such as **push, pop, peek, clear, and resize** with smooth animations and real-time updates.
 
 ## 🚀 Live Demo
-👉 https://your-username.github.io/stack-visualizer/
+👉 [https://your-username.github.io/stack-visualizer/](https://adsulerajat.github.io/Stack-Visualizer/)
 
 ---
 
